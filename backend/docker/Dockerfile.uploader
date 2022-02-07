@@ -1,9 +1,9 @@
-from python
+FROM python
 
 WORKDIR /usr/src/
 ENV PYTHONPATH=/usr/src
 
-COPY . /usr/src
+COPY ../../backend /usr/src
 
 RUN pip install -r requirements.txt
 

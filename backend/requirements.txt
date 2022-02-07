@@ -3,3 +3,4 @@ marshmallow==3.14.1
 pymysql==1.0.2
 requests==2.27.1
 sqlalchemy==1.4.31
+sqlalchemy-utils==0.38.2
