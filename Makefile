@@ -3,6 +3,7 @@ backend-build:
 
 backend-up:
 	docker-compose -f backend/docker/docker-compose.yml up -d
+	docker exec -it -d nhl_uploader python api/app.py
 
 backend-down:
 	docker-compose -f backend/docker/docker-compose.yml down

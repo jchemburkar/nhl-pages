@@ -1,12 +1,18 @@
-import React from 'react';
+import { useState, useEffect } from "react";
 
 function App() {
+  const [currentTime, setCurrentTime] = useState("bye");
+
+  useEffect(() => {
+    fetch('/time').then(res => res.json()).then(data => {
+      setCurrentTime(data.time);
+    });
+  }, []);
+
   return (
     <div className="App">
       <header className="App-header">
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
+        <p>The current time is {currentTime}.</p>
       </header>
     </div>
   );
