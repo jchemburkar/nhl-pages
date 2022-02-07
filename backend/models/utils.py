@@ -2,10 +2,20 @@
 from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import Session
+from sqlalchemy_utils import database_exists, create_database
 
+DATABASE = "nhl"
+URL = f"mysql+pymysql://root:beans@mysql:3306/{DATABASE}"
 
-ENGINE = create_engine('mysql+pymysql://root:@localhost/nhl', echo=False)
+# add `nhl` database by default if it doesn't exist
+if not database_exists(URL):
+    # TODO: make this a logging statement
+    print("Creating `nhl` database")
+    create_database(URL)
+
+ENGINE = create_engine('mysql+pymysql://root:beans@mysql:3306', echo=False)
 BASE = declarative_base(bind=ENGINE)
+
 
 
 def get_session():
