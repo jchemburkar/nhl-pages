@@ -1,8 +1,14 @@
 backend-build:
-	docker build -t nhl-pages-backend -f backend/Dockerfile .
+	docker-compose -f backend/docker/docker-compose.yml build
 
-backend-run:
-	docker run --rm -it nhl-pages-backend:latest bash
+backend-up:
+	docker-compose -f backend/docker/docker-compose.yml up -d
 
-backend-live-run:
-	docker run -v ${PWD}/backend:/usr/src --rm -it nhl-pages-backend:latest bash
+backend-down:
+	docker-compose -f backend/docker/docker-compose.yml down
+
+backend-enter:
+	docker exec -it nhl_uploader bash
+
+database-enter:
+	docker exec -it nhl_mysql mysql -uroot -pbeans

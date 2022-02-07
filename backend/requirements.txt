@@ -1,3 +1,5 @@
-django==4.0.2
 flask==2.0.2
 marshmallow==3.14.1
+pymysql==1.0.2
+requests==2.27.1
+sqlalchemy==1.4.31

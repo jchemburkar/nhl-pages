@@ -1,0 +1,23 @@
+version: '3'
+
+services:
+
+  mysql:
+    build:
+      context: .
+      dockerfile: Dockerfile.mysql
+    container_name: nhl_mysql
+    ports:
+      - "5432:5432"
+
+  uploader:
+    build:
+      context: .
+      dockerfile: Dockerfile.uploader
+    container_name: nhl_uploader
+    volumes:
+      - ../../backend:/usr/src
+    ports:
+      - "80:8080"
+    depends_on:
+      - mysql  
