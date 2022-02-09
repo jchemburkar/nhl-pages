@@ -1,11 +1,12 @@
-import time
 from flask import Flask
+from api.player.blueprints import PLAYER_API
 
-app = Flask(__name__)
+APP = Flask(__name__)
 
-@app.route('/time')
-def get_current_time():
-    return {'time': time.time()}
+# register any blueprints with the base api
+for blueprint in [PLAYER_API]:
+    APP.register_blueprint(blueprint)
+
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0')
+    APP.run(host='0.0.0.0')

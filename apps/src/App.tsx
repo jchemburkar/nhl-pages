@@ -1,18 +1,18 @@
 import { useState, useEffect } from "react";
 
 function App() {
-  const [currentTime, setCurrentTime] = useState("bye");
+  const [currentPlayer, setCurrentPlayer] = useState("");
 
   useEffect(() => {
-    fetch('/time').then(res => res.json()).then(data => {
-      setCurrentTime(data.time);
+    fetch('/players/8470638').then(res => res.json()).then(data => {
+      setCurrentPlayer(data.firstName.concat(' ', data.lastName));
     });
   }, []);
 
   return (
     <div className="App">
       <header className="App-header">
-        <p>The current time is {currentTime}.</p>
+        <p>The current time is {currentPlayer}.</p>
       </header>
     </div>
   );

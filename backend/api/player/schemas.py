@@ -1,0 +1,26 @@
+""" parses output of query into dict for FE """
+from marshmallow import Schema, fields
+
+class PlayerSchema(Schema):
+    birthCity = fields.Str(attribute="birth_city")
+    birthCountry = fields.Str(attribute="birth_country")
+    birthDate = fields.Str(attribute="birth_date")
+    birthStateProvince = fields.Str(attribute="birth_state_province")
+    currentAge = fields.Integer(attribute="current_age")
+    currentTeamId = fields.Integer(attribute="current_team_id")
+    firstName = fields.Str(attribute="first_name")
+    fullName = fields.Str(attribute="full_name")
+    height = fields.Str()
+    id = fields.Integer()
+    isActive = fields.Boolean(attribute="is_active")
+    isAlternate_captain = fields.Boolean(attribute="is_alternate_captain")
+    isCaptain = fields.Boolean(attribute="is_captain")
+    isRookie = fields.Boolean(attribute="is_rookie")
+    lastName = fields.Str(attribute="last_name")
+    link = fields.Str()
+    nationality = fields.Str()
+    primaryNumber = fields.Str(attribute="primary_number")
+    primaryPosition = fields.Str(attribute="primary_position")
+    rosterStatus = fields.Str(attribute="roster_status")
+    shootsCatches = fields.Str(attribute="shoots_catches")
+    weight = fields.Integer()
