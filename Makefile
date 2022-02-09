@@ -12,3 +12,10 @@ backend-enter:
 
 database-enter:
 	docker exec -it nhl_mysql mysql -uroot -pbeans
+
+api-start:
+	docker exec -it -d nhl_uploader python uploader/statsapi/upload_statsapi.py
+	docker exec -it -d nhl_uploader python api/app.py
+
+app-start:
+	npm start --prefix apps
