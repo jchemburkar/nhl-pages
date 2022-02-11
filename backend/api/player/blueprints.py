@@ -8,7 +8,7 @@ from models.statsapi.player import StatsapiPlayer
 PLAYER_API = Blueprint("players", __name__)
 
 @PLAYER_API.route("/players/<int:player_id>", methods=["GET"])
-def get_current_time(player_id):
+def get_player(player_id: int):
     player = SESSION.query(StatsapiPlayer).filter(StatsapiPlayer.id == player_id).first()
     player_dumped = PlayerSchema().dump(player)
     return jsonify(player_dumped)
