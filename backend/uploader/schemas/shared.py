@@ -8,7 +8,8 @@ class RawPosition(Schema):
     type = fields.Str()
 
 class RawInfo(Schema):
+    abbreviation = fields.Str()
     id = fields.Integer()
     link = fields.Str()
     name = fields.Str()
-    
+    nameShort = fields.Str()
