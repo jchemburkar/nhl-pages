@@ -1,7 +1,8 @@
 ''' sql alchemy model for statsapi_player table '''
-from sqlalchemy import Column
+from sqlalchemy import Column, ForeignKey
 from sqlalchemy.dialects.mysql import VARCHAR, TINYINT, MEDIUMINT, DATE, INTEGER
 from models.utils import BASE, DATABASE
+from models.statsapi.team import StatsapiTeam
 
 
 class StatsapiPlayer(BASE):
@@ -13,7 +14,7 @@ class StatsapiPlayer(BASE):
     first_name = Column(VARCHAR(30))
     last_name = Column(VARCHAR(30))
     full_name = Column(VARCHAR(100))
-    current_team_id = Column(MEDIUMINT)
+    current_team_id = Column(StatsapiTeam.id.type, ForeignKey(StatsapiTeam.id))
     birth_date = Column(DATE)
     birth_city = Column(VARCHAR(30))
     birth_country = Column(VARCHAR(30))
