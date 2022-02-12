@@ -18,6 +18,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
+    "stop": "killall -9 node",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
