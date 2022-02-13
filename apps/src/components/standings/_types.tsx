@@ -1,4 +1,5 @@
 export type TStanding = {
+    [index: string]: PropertyKey,
     conferenceId: number,
     conferenceName: string,
     conferenceRank: number,

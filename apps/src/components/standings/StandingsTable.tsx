@@ -1,44 +1,52 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { TStanding } from "./_types";
+import Table from "@material-ui/core/Table";
+import { TableHead, TableRow, TableCell, TableContainer, TableBody, Paper } from "@material-ui/core";
 
-const COLUMNS = ["Team", "GP", "W", "L", "ROW", "Points", "Points Percentage"]
-
-
-function _StandingsTableRow(standing: TStanding, idx: number) {
-    return (
-        <tr key={idx}>
-            <td>{standing.teamName}</td>
-            <td>{standing.gamesPlayed}</td>
-            <td>{standing.regulationWins}</td>
-            <td>{standing.gamesPlayed - standing.row}</td>
-            <td>{standing.row}</td>
-            <td>{standing.points}</td>
-            <td>{standing.pointsPercentage}</td>
-        </tr>
-    )
+const COLUMN_MAP = {
+    "Team": "teamName",
+    "GP": "gamesPlayed",
+    "W": "regulationWins",
+    "ROW": "row",
+    "Points": "points",
+    "Points Pct": "pointsPercentage"
 }
 
 export default function StandingsTable(standings: Array<TStanding>) {
     if(!standings) return null;
+    
     return (
-        <table>
-            <thead>
-                <tr>{standings[0].divisionName}</tr>
-                <tr>
-                    <th />
-                    {Object.values(COLUMNS).map((col, idx) => (
-                        <th key={idx}>{col}</th>
-                    ))}
-                </tr>
-            </thead>
-            <tbody>
-                {
-                    standings.sort((standingA, standingB) => (standingA.pointsPercentage > standingB.pointsPercentage) ? -1 : 1)
-                    .map((value, idx) => {
-                        return _StandingsTableRow(value, idx)
-                    })
-                }
-            </tbody>
-        </table>
+        <div>
+            <h1 style={{font: "aria", textAlign: "center"}}>{standings[0].divisionName}</h1>
+            <TableContainer component={Paper}>
+                <Table aria-label="simple table">
+                    <TableHead>
+                        <TableRow>{
+                            Object.keys(COLUMN_MAP).map((col) => {
+                                return <TableCell align="right">{col}</TableCell>
+                            })
+                        }
+                        </TableRow>
+                    </TableHead>
+                    <TableBody>
+                        {
+                            standings.sort((standingA, standingB) => (standingA.points > standingB.points) ? -1 : 1)
+                            .map((standing, idx) => {
+                                return (
+                                    <TableRow key={idx}>
+                                        {
+                                            Object.values(COLUMN_MAP).map((col) => {
+                                                return <TableCell>{col in standing ? standing[col] : ""}</TableCell>
+                                            })
+                                        }
+                                    </TableRow>
+                                )
+                            })
+                                
+                        }
+                    </TableBody>
+                </Table>
+            </TableContainer>
+        </div>
     )
 }

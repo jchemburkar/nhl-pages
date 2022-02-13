@@ -1,6 +1,8 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { TStanding } from "./_types";
 import StandingsTable from "./StandingsTable"
+import { Grid } from '@material-ui/core'
+
 
 // pulls data and types it
 async function getStandings(): Promise<Array<TStanding>> {
@@ -32,10 +34,14 @@ export default function Standings ()  {
         );
     }, []);
 
-    return <div>
-        {
+
+    return <div>{
+        <Grid container spacing={2}>{
             Object.values(groupDivisions(standings))
-            .map((division: Array<TStanding>) => StandingsTable(division))
+            .map((division: Array<TStanding>) => {
+                return <Grid item xs={6}>{StandingsTable(division)}</Grid>
+            })
         }
-    </div>
+        </Grid>
+    }</div>
 }
