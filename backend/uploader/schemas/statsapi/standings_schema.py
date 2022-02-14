@@ -99,7 +99,7 @@ class Standing(Schema):
     pp_conference_rank = fields.Integer(attribute="ppConferenceRank")
     pp_division_rank = fields.Integer(attribute="ppDivisionRank")
     pp_league_rank = fields.Integer(attribute="ppLeagueRank")
-    regulation_wins = fields.Integer(attribute="regualtionWins")
+    regulation_wins = fields.Integer(attribute="regulationWins")
     row = fields.Integer()
     streak = fields.Str()
     team_id = fields.Integer(attribute="team.id")

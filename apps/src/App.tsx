@@ -1,20 +1,22 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+} from "react-router-dom";
+import Standings from "./components/standings/Standing"
+import Team from "./components/team/Team"
 
 function App() {
-  const [currentPlayer, setCurrentPlayer] = useState("");
-
-  useEffect(() => {
-    fetch('/players/8470638').then(res => res.json()).then(data => {
-      setCurrentPlayer(data.firstName.concat(' ', data.lastName));
-    });
-  }, []);
-
   return (
-    <div className="App">
-      <header className="App-header">
-        <p>The current time is {currentPlayer}.</p>
-      </header>
-    </div>
+    <>
+      <Router>
+        <Routes>
+          <Route path="/" element={<Standings/>} />
+          <Route path="/teams/:teamId" element={<Team/>}/>
+        </Routes>
+      </Router>
+    </>
   );
 }
 

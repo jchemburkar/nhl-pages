@@ -89,8 +89,8 @@ def upload_statsapi_data(session: Any):
     """ uploads all statsapi data -- by pulling standings --> teams --> players """
     teams = upload_team_data(session)
     upload_standing_data(session)
-    for team in teams:
-        upload_players_for_team(session, team["id"])
+    # for team in teams:
+    #     upload_players_for_team(session, team["id"])
 
 
 def main():
