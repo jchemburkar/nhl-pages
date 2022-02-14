@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { TStanding } from "./_types";
 import StandingsTable from "./StandingsTable"
 import { Grid } from '@material-ui/core'
+import { useNavigate } from 'react-router-dom';
 
 
 // pulls data and types it
@@ -24,6 +25,11 @@ const groupDivisions = (standings: Array<TStanding>): Array<Array<TStanding>> =>
 }
 
 export default function Standings ()  {
+    const navigate = useNavigate();
+    const handleClick = (teamId: number) => {
+        navigate("/teams/" + String(teamId))
+    }
+
     const [ standings, setStandings ] = useState(Array<TStanding>());
 
     useEffect(() => {
@@ -39,7 +45,7 @@ export default function Standings ()  {
         <Grid container spacing={2}>{
             Object.values(groupDivisions(standings))
             .map((division: Array<TStanding>) => {
-                return <Grid item xs={6}>{StandingsTable(division)}</Grid>
+                return <Grid item xs={6}>{<StandingsTable standings={division} handleClick={handleClick}/>}</Grid>
             })
         }
         </Grid>

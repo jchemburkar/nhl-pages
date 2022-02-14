@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { TStanding } from "./_types";
 import Table from "@material-ui/core/Table";
 import { TableHead, TableRow, TableCell, TableContainer, TableBody, Paper } from "@material-ui/core";
+
 
 const COLUMN_MAP = {
     "Team": "teamName",
@@ -12,7 +13,13 @@ const COLUMN_MAP = {
     "Points Pct": "pointsPercentage"
 }
 
-export default function StandingsTable(standings: Array<TStanding>) {
+interface StandingsTableProps {
+    standings: Array<TStanding>;
+    handleClick: any;
+}
+
+export default function StandingsTable(props:StandingsTableProps) {
+    const { standings, handleClick } = props;
     if(!standings) return null;
     
     return (
@@ -23,7 +30,7 @@ export default function StandingsTable(standings: Array<TStanding>) {
                     <TableHead>
                         <TableRow>{
                             Object.keys(COLUMN_MAP).map((col) => {
-                                return <TableCell align="right">{col}</TableCell>
+                                return <TableCell align="left">{col}</TableCell>
                             })
                         }
                         </TableRow>
@@ -36,7 +43,7 @@ export default function StandingsTable(standings: Array<TStanding>) {
                                     <TableRow key={idx}>
                                         {
                                             Object.values(COLUMN_MAP).map((col) => {
-                                                return <TableCell>{col in standing ? standing[col] : ""}</TableCell>
+                                                return <TableCell onClick={() => handleClick(standing.teamId)}>{col in standing ? standing[col] : ""}</TableCell>
                                             })
                                         }
                                     </TableRow>

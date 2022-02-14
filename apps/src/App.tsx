@@ -1,11 +1,22 @@
 import React, { useState, useEffect } from "react";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+} from "react-router-dom";
 import Standings from "./components/standings/Standing"
+import Team from "./components/team/Team"
 
 function App() {
   return (
-    <div className="App">
-      <body>{Standings()}</body>
-    </div>
+    <>
+      <Router>
+        <Routes>
+          <Route path="/" element={<Standings/>} />
+          <Route path="/teams/:teamId" element={<Team/>}/>
+        </Routes>
+      </Router>
+    </>
   );
 }
 
