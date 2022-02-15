@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { TTeam } from "./_types"
 import styled from "@emotion/styled";
 import { useParams } from "react-router-dom";
+import { Card, CardContent, CardMedia, Typography } from "@material-ui/core"
 
 
 // pulls data and types it
@@ -15,37 +16,56 @@ async function getTeam(team_id: string): Promise<TTeam> {
       })
 }
 
-export const FlexContainer = styled.div({
+export const HorizontalFlexContainer = styled.div({
      display: "flex",
-     height: "150px"
+     justifyContent: "center",
+     flexDirection: "row",
+     height: "150px",
+     css: {
+        width: "100%"
+     }
+});
+
+export const VerticalFlexContainer = styled.div({
+     display: "flex",
+     flexDirection: "column",
+     height: "150px",
+     color: "white",
+     backgroundColor: "black"
 });
 
 const TeamTitle = (team: TTeam) => {
     return (
-        <div style={{
-            background: "lightgray"
-        }}>
-            <h1>{team.name}</h1>
-        </div>
+        <HorizontalFlexContainer><h1>{team.name}</h1></HorizontalFlexContainer>
+    )
+}
+
+const TeamHeaderCard = (title: string, content: string) => {
+    return (
+        <Card>
+            <CardContent>
+                <Typography align="center" color="textSecondary">{title}</Typography>
+                <Typography align="center" color="textPrimary" variant="h4">{content}</Typography>
+            </CardContent>
+        </Card>
     )
 }
 
 const TeamHeader = (team: TTeam) => {
     return(
-        <div style={{
-            overflow: "hidden",
-            position: "relative",
-            background: "lightgray"
-        }} > {
-            <FlexContainer>
-                <img 
-                    ref={useRef<HTMLImageElement>(null)}
-                    src={"https://www-league.nhlstatic.com/images/logos/teams-current-primary-light/" + team.id + ".svg"}
-                    style={{height: "93%", width: "auto", border: "5px solid black", background: "white"}}
+        <HorizontalFlexContainer>
+            <Card>
+                <CardMedia
+                    component="img"
+                    height="150"
+                    image={"https://www-league.nhlstatic.com/images/logos/teams-current-primary-light/" + String(team.id) + ".svg"}
                 />
-            </FlexContainer>
-        }
-        </div>
+            </Card>
+            {TeamHeaderCard("VENUE", team.venueName)}
+            {TeamHeaderCard("DIVISION", team.divisionName)}
+            {TeamHeaderCard("CONFERENCE", team.conferenceName)}
+            {TeamHeaderCard("FIRST YEAR OF PLAY", String(team.firstYearOfPlay))}
+        </HorizontalFlexContainer>
     )
 }
 
@@ -61,9 +81,9 @@ export default function Team ()  {
     }, []);
 
     return (
-        <div>
+        <VerticalFlexContainer>
             {TeamTitle(team)}
             {TeamHeader(team)}
-        </div>
+        </VerticalFlexContainer>
     )
 }
