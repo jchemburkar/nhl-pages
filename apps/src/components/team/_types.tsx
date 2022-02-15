@@ -4,7 +4,7 @@ export type TTeam = {
     conferenceId: number,
     conferenceName: string,
     divisionId: number,
-    divisionName: number,
+    divisionName: string,
     firstYearOfPlay: number,
     franchiseId: number,
     id: number,

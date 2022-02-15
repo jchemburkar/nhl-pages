@@ -18,4 +18,4 @@ class TeamSchema(Schema):
     shortName = fields.Str(attribute="short_name")
     teamName = fields.Str(attribute="team_name")
     venueId = fields.Integer(attribute="venue_id")
-    venueName = fields.Str(attribute="venueNname")
+    venueName = fields.Str(attribute="venue_name")
