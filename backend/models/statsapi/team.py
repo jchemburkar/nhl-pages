@@ -1,5 +1,6 @@
 ''' sql alchemy model for statsapi_team table '''
 from sqlalchemy import Column
+from sqlalchemy.orm import relationship
 from sqlalchemy.dialects.mysql import VARCHAR, TINYINT, MEDIUMINT
 from models.utils import BASE, DATABASE
 
@@ -26,3 +27,5 @@ class StatsapiTeam(BASE):
     franchise_id = Column(MEDIUMINT)
     link = Column(VARCHAR(50))
     official_site_url = Column(VARCHAR(50))
+
+    players = relationship("StatsapiPlayer")
