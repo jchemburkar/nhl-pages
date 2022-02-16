@@ -1,7 +1,6 @@
 import React from "react";
 import { TStanding } from "./_types";
-import Table from "@material-ui/core/Table";
-import { TableHead, TableRow, TableCell, TableContainer, TableBody, Paper } from "@material-ui/core";
+import { Table, TableHead, TableRow, TableCell, TableContainer, TableBody, Paper } from "@material-ui/core";
 
 
 const COLUMN_MAP = {

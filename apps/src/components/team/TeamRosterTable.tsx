@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React from "react";
 import { TPlayer } from "./_types"
 import { Table, TableHead, TableRow, TableCell, TableContainer, TableBody, Paper } from "@material-ui/core";
 
