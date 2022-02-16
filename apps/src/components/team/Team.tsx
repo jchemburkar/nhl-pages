@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import { TTeam, TPlayer } from "./_types"
 import { TeamRosterTable } from "./TeamRosterTable"
 import styled from "@emotion/styled";
@@ -100,7 +100,7 @@ export default function Team ()  {
         .then((response) => {
             setTeam(response)
         })
-    }, []);
+    }, [params.teamId]);
 
     return (
         <div>
