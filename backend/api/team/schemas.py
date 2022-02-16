@@ -1,5 +1,5 @@
 """ parses output of query into dict for FE """
-from marshmallow import Schema, fields
+from marshmallow import Schema, fields, pre_dump
 
 class PlayerSchema(Schema):
     id = fields.Integer()
@@ -14,10 +14,10 @@ class PlayerSchema(Schema):
     height = fields.Integer()
     weight = fields.Integer()
     currentAge = fields.Integer(attribute="current_age")
-    isActive = fields.Boolean(attribute="is_active")
-    isAlternate_captain = fields.Boolean(attribute="is_alternate_captain")
-    isCaptain = fields.Boolean(attribute="is_captain")
-    isRookie = fields.Boolean(attribute="is_rookie")
+    isActive = fields.Integer(attribute="is_active")
+    isAlternate_captain = fields.Integer(attribute="is_alternate_captain")
+    isCaptain = fields.Integer(attribute="is_captain")
+    isRookie = fields.Integer(attribute="is_rookie")
     link = fields.Str()
     nationality = fields.Str()
     primaryNumber = fields.Integer(attribute="primary_number")
@@ -45,3 +45,9 @@ class TeamSchema(Schema):
     teamName = fields.Str(attribute="team_name")
     venueId = fields.Integer(attribute="venue_id")
     venueName = fields.Str(attribute="venue_name")
+
+    @pre_dump
+    def predump_players(self, data, **kwargs):
+        """ filter for active only """
+        data.players = [x for x in data.players if x.is_active]
+        return data

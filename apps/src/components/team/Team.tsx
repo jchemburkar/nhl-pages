@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
-import { TTeam } from "./_types"
+import { TTeam, TPlayer } from "./_types"
+import { TeamRosterTable } from "./TeamRosterTable"
 import styled from "@emotion/styled";
 import { useParams } from "react-router-dom";
 import { Card, CardContent, CardMedia, Typography } from "@material-ui/core"
@@ -16,23 +17,40 @@ async function getTeam(team_id: string): Promise<TTeam> {
       })
 }
 
-export const HorizontalFlexContainer = styled.div({
+/*
+    STYLES
+*/
+
+const HeaderContainer = styled.div({
      display: "flex",
      justifyContent: "center",
      flexDirection: "row",
-     height: "150px",
-     css: {
-        width: "100%"
-     }
+     alignItems: "center"
 });
 
-export const VerticalFlexContainer = styled.div({
+const HorizontalFlexContainer = styled.div({
+     display: "flex",
+     justifyContent: "center",
+     flexDirection: "row"
+});
+
+const VerticalFlexContainer = styled.div({
      display: "flex",
      flexDirection: "column",
-     height: "150px",
+     height: "250px",
      color: "white",
-     backgroundColor: "black"
+     backgroundColor: "black",
+     paddingBottom: "30px"
 });
+
+const ElementSpacingStyle = {
+    "paddingRight": "4%",
+    "paddingLeft": "0px"
+}
+
+/*
+    COMPONENTS
+*/
 
 const TeamTitle = (team: TTeam) => {
     return (
@@ -42,30 +60,34 @@ const TeamTitle = (team: TTeam) => {
 
 const TeamHeaderCard = (title: string, content: string) => {
     return (
-        <Card>
-            <CardContent>
-                <Typography align="center" color="textSecondary">{title}</Typography>
-                <Typography align="center" color="textPrimary" variant="h4">{content}</Typography>
-            </CardContent>
-        </Card>
+        <div style={{"paddingRight": "0.5%"}}>
+            <Card>
+                <CardContent>
+                    <Typography align="center" color="textSecondary">{title}</Typography>
+                    <Typography align="center" color="textPrimary" variant="h4">{content}</Typography>
+                </CardContent>
+            </Card>
+        </div>
     )
 }
 
 const TeamHeader = (team: TTeam) => {
     return(
-        <HorizontalFlexContainer>
-            <Card>
-                <CardMedia
-                    component="img"
-                    height="150"
-                    image={"https://www-league.nhlstatic.com/images/logos/teams-current-primary-light/" + String(team.id) + ".svg"}
-                />
-            </Card>
+        <HeaderContainer>
+            <div style={{"paddingRight": "0.5%"}}>
+                <Card>
+                    <CardMedia
+                        component="img"
+                        height="150"
+                        image={"https://www-league.nhlstatic.com/images/logos/teams-current-primary-light/" + String(team.id) + ".svg"}
+                    />
+                </Card>
+            </div>
             {TeamHeaderCard("VENUE", team.venueName)}
             {TeamHeaderCard("DIVISION", team.divisionName)}
             {TeamHeaderCard("CONFERENCE", team.conferenceName)}
             {TeamHeaderCard("FIRST YEAR OF PLAY", String(team.firstYearOfPlay))}
-        </HorizontalFlexContainer>
+        </HeaderContainer>
     )
 }
 
@@ -81,9 +103,25 @@ export default function Team ()  {
     }, []);
 
     return (
-        <VerticalFlexContainer>
-            {TeamTitle(team)}
-            {TeamHeader(team)}
-        </VerticalFlexContainer>
+        <div>
+            <VerticalFlexContainer>
+                {TeamTitle(team)}
+                {TeamHeader(team)}
+            </VerticalFlexContainer>
+            <HorizontalFlexContainer>
+                <div style={ElementSpacingStyle}>
+                    <h1 style={{textAlign: "center"}}>Forwards</h1>
+                    <TeamRosterTable players={team.players ? Object.values(team.players).filter(player => ["C", "L", "R"].includes(player.primaryPosition)) : Array<TPlayer>()}/>
+                </div>
+                <div style={ElementSpacingStyle}>
+                    <h1 style={{textAlign: "center"}}>Defenseman</h1>
+                    <TeamRosterTable players={team.players ? Object.values(team.players).filter(player => ["D"].includes(player.primaryPosition)) : Array<TPlayer>()}/>
+                </div>
+                <div style={ElementSpacingStyle}>
+                    <h1 style={{textAlign: "center"}}>Goalies</h1>
+                    <TeamRosterTable players={team.players ? Object.values(team.players).filter(player => ["G"].includes(player.primaryPosition)) : Array<TPlayer>()}/>
+                </div>
+            </HorizontalFlexContainer>
+        </div>
     )
 }
